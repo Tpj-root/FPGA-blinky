@@ -4,7 +4,7 @@
 
 PROJECT  := rio
 TOP      := rio
-PART      := EP2C5T144
+PART      := EP2C5T144C8
 FAMILY    := "Cyclone II"
 VERILOGS  := blink.v rio.v
 
