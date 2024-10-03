@@ -26,13 +26,25 @@ QFFLAGS = --part=$(PART) --read_settings_files=on
 
 ASIGN = $(PROJECT).qsf $(PROJECT).qpf
 
-all: $(PROJECT)
+all: export PATH := $(PATH):/home/sab/altera/13.0sp1/quartus/bin
+all: $(PROJECT) svf
+
+     
 
 map: smart.log $(PROJECT).map.rpt
 fit: smart.log $(PROJECT).fit.rpt
 asm: smart.log $(PROJECT).asm.rpt
 sta: smart.log $(PROJECT).sta.rpt
 smart: smart.log
+
+
+svf: $(PROJECT).sof
+	$(Q)$(ECHO) "Converting .sof to .svf."
+	quartus_cpf -c --operation=p --freq=6MHz --voltage=3.3V $(PROJECT).sof $(PROJECT).svf
+	$(STAMP) svf.chg
+
+
+
 
 $(ASIGN):
 	$(Q)$(ECHO) "Generating asignment files."
